@@ -13,26 +13,38 @@ import java.util.List;
 @RequestMapping("/employees")
 public class EmployeeController {
 
-	private EmployeeService employeeService;
+    private EmployeeService employeeService;
 
-	public EmployeeController(EmployeeService theEmployeeService) {
-		employeeService = theEmployeeService;
-	}
+    public EmployeeController(EmployeeService theEmployeeService) {
+        employeeService = theEmployeeService;
+    }
 
-	// add mapping for "/list"
+    // add mapping for "/list"
 
-	@GetMapping("/list")
-	public String listEmployees(Model theModel) {
+    @GetMapping("/list")
+    public String listEmployees(Model theModel) {
 
-		//get the employees from the DB
-		List<Employee> theEmployees = employeeService.findAll();
+        //get the employees from the DB
+        List<Employee> theEmployees = employeeService.findAll();
 
-		// add to the spring model
-		theModel.addAttribute("employees", theEmployees);
+        // add to the spring model
+        theModel.addAttribute("employees", theEmployees);
 
-		return "list-employees";
-	}
+        return "employees/list-employees";
+    }
+
+    @GetMapping("/showFormForAdd")
+    public String showFormForAdd(Model theModel) {
+
+        //create model attribute to bind form data
+        Employee theEmployee = new Employee();
+
+        theModel.addAttribute("employee", theEmployee);
+
+        return "employees/employee-form";
+    }
 }
+
 
 
 
